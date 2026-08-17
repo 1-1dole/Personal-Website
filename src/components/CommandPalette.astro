@@ -1,4 +1,23 @@
 ---
+import { projects } from '../data/projects';
 import { withBase } from '../utils/paths';
+
+const destinations = [
+  ['skills', 'Skills'],
+  ['background', 'Background'],
+  ['learnings', 'Learnings'],
+  ['target', 'Target'],
+  ['contact', 'Contact'],
+] as const;
 ---
-<div class="palette" data-palette role="dialog" aria-modal="true" aria-label="Command palette" hidden><h2 id="palette-title">Jump to</h2><input data-palette-input placeholder="Search sections…" aria-label="Search sections" /><div data-palette-items><a href={withBase('#about')}>About</a><a href={withBase('#work')}>Work</a><a href={withBase('#capabilities')}>Capabilities</a><a href={withBase('#journey')}>Journey</a><a href={withBase('#contact')}>Contact</a></div></div>
+
+<div class="palette" data-palette role="dialog" aria-modal="true" aria-label="Command palette" hidden>
+  <h2>Jump to a destination</h2>
+  <input data-palette-input placeholder="Search destinations…" aria-label="Search destinations" autocomplete="off" />
+  <div data-palette-items>
+    <p class="palette-group">Profile</p>
+    {destinations.map(([id, label]) => <a href={withBase(`#${id}`)}>{label}</a>)}
+    <p class="palette-group">Case studies</p>
+    {projects.map((project) => <a href={withBase(`projects/${project.slug}/`)}>{project.title}</a>)}
+  </div>
+</div>

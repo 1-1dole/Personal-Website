@@ -1,0 +1,35 @@
+---
+import { profileStations } from '../data/profile';
+import { withBase } from '../utils/paths';
+---
+
+<section class="profile-map" aria-labelledby="profile-map-title" data-profile-map>
+  <svg class="atlas-map" viewBox="0 0 1200 620" aria-hidden="true" focusable="false">
+    <path data-route="cobalt" pathLength="1" d="M392 296 L548 118 L1010 118" />
+    <path data-route="green" pathLength="1" d="M402 312 L700 312 L1060 312" />
+    <path data-route="orange" pathLength="1" d="M396 328 L555 498 L965 498" />
+    <path data-route="black" pathLength="1" d="M375 332 L375 548 L735 548" />
+    <circle class="interchange-ring" cx="392" cy="312" r="31" />
+    <circle class="interchange-core" cx="392" cy="312" r="13" />
+  </svg>
+
+  <div class="interchange-card">
+    <p class="atlas-name">Anson Lin</p>
+    <h1 id="profile-map-title">Graduate Software Engineer</h1>
+    <p class="atlas-intro">I build dependable full-stack products and tested systems.</p>
+    <p class="atlas-location">Auckland, Aotearoa New Zealand</p>
+    <div class="map-actions">
+      <a class="action action-primary" href="#skills">Explore my profile</a>
+      <a class="action" href={withBase('resume/Anson_Lin_Resume.pdf')}>Download resume</a>
+    </div>
+  </div>
+
+  <nav class="station-list" aria-label="Profile map">
+    {profileStations.map((station) => (
+      <a class={`station station-${station.route}`} data-station={station.id} href={`#${station.id}`}>
+        <span>{station.label}</span>
+        <small>{station.summary}</small>
+      </a>
+    ))}
+  </nav>
+</section>

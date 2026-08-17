@@ -1,4 +1,21 @@
 ---
+import CaseStudyMenu from './CaseStudyMenu.astro';
 import { withBase } from '../utils/paths';
 ---
-<a class="skip" href="#main">Skip to content</a><header class="site-header"><a class="brand" href={withBase('/')} aria-label="Anson Lin home">AL<span>.</span></a><button class="menu" data-menu aria-label="Open navigation" aria-expanded="false" aria-controls="primary-nav">Menu</button><nav id="primary-nav" data-nav aria-label="Primary navigation"><a href={withBase('#about')}>About</a><a href={withBase('#work')}>Work</a><a href={withBase('#capabilities')}>Capabilities</a><a href={withBase('#journey')}>Journey</a><a href={withBase('#contact')}>Contact</a><a class="resume" href={withBase('resume/Anson_Lin_Resume.pdf')} aria-label="Download resume">Resume</a></nav><button class="command" data-command aria-label="Open command palette">⌘ K</button></header>
+
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <a class="brand" href={withBase('/')} aria-label="Anson Lin home">AL</a>
+  <button class="menu" data-menu aria-label="Open navigation" aria-expanded="false" aria-controls="primary-nav">Menu</button>
+  <nav id="primary-nav" data-nav aria-label="Primary navigation">
+    <a href={withBase('/')}>Home</a>
+    <a href={withBase('#skills')}>Skills</a>
+    <a href={withBase('#background')}>Background</a>
+    <a href={withBase('#learnings')}>Learnings</a>
+    <a href={withBase('#target')}>Target</a>
+    <CaseStudyMenu />
+    <a href={withBase('#contact')}>Contact</a>
+    <a class="resume" href={withBase('resume/Anson_Lin_Resume.pdf')} aria-label="Download resume">Resume</a>
+  </nav>
+  <button class="command" data-command aria-label="Open command palette">⌘ K</button>
+</header>

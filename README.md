@@ -1,7 +1,8 @@
 # Personal Website
 
-Anson Lin's Astro + TypeScript software-engineering portfolio: a polished,
-pixel-inspired site focused on backend, full-stack, testing, and delivery work.
+Anson Lin's Astro + TypeScript software-engineering portfolio. Its Systems
+Atlas interface introduces Anson through a profile map, then keeps detailed
+engineering evidence on focused case-study routes.
 
 **Live website:** [https://1-1dole.github.io/Personal-Website/](https://1-1dole.github.io/Personal-Website/)
 
@@ -18,8 +19,15 @@ pnpm run test:unit # Run unit tests
 pnpm run build     # Build the static site into dist/
 ```
 
-Project content lives in `src/data/projects.ts` and `src/data/site.ts`. The
-downloadable resume is served from `public/resume/Anson_Lin_Resume.pdf`.
+Homepage facts live in `src/data/profile.ts`; case-study facts live in
+`src/data/projects.ts`; shared site metadata lives in `src/data/site.ts`. Keep
+the homepage focused on Skills, Background, Learnings, Target, and Contact.
+Projects remain discoverable through the global Case studies menu and appear
+only on their generated case-study routes.
+
+The visual system and reusable interface rules are documented in `DESIGN.md`.
+The downloadable resume is served from
+`public/resume/Anson_Lin_Resume.pdf`.
 
 ## GitHub Pages
 
