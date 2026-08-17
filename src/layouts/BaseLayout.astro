@@ -104,9 +104,10 @@ const imageUrl = socialImageUrl(canonicalPath, image);
           openPalette();
         }
         if (event.key === 'Escape') {
-          if (dialog && !dialog.hasAttribute('hidden')) closePalette();
+          const paletteWasOpen = Boolean(dialog && !dialog.hasAttribute('hidden'));
+          if (paletteWasOpen) closePalette();
           closeCaseMenus();
-          closeNav(true);
+          closeNav(!paletteWasOpen);
         }
         if (dialog && !dialog.hasAttribute('hidden')) {
           const visible = visibleItems();
