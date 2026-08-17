@@ -3,6 +3,8 @@
 Anson Lin's Astro + TypeScript software-engineering portfolio: a polished,
 pixel-inspired site focused on backend, full-stack, testing, and delivery work.
 
+**Live website:** [https://1-1dole.github.io/Personal-Website/](https://1-1dole.github.io/Personal-Website/)
+
 ## Prerequisites
 
 - Node.js 22 and pnpm 10
