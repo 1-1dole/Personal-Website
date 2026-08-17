@@ -2,4 +2,4 @@
 import BaseLayout from '../layouts/BaseLayout.astro'; import Header from '../components/Header.astro';
 import { withBase } from '../utils/paths';
 ---
-<BaseLayout><Header /><main id="main" class="not-found"><div class="eyebrow">404 / checkpoint missing</div><h1>Lost in the map.</h1><p>That page doesn’t exist, but the useful stuff is still here.</p><a class="button primary" href={withBase('/')}>Return home</a></main></BaseLayout>
+<BaseLayout><Header /><main id="main" class="not-found"><div class="eyebrow">404 / Station not found</div><h1>That station is missing.</h1><p>This route does not exist, but the profile map is still here.</p><a class="button primary" href={withBase('/')}>Return to profile map</a></main></BaseLayout>
