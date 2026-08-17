@@ -6,6 +6,7 @@ import {
   skillGroups,
   targetProfile,
 } from './profile';
+import { projects } from './projects';
 
 describe('profile content', () => {
   it('defines the four homepage stations in route order', () => {
@@ -15,7 +16,12 @@ describe('profile content', () => {
       'learnings',
       'target',
     ]);
-    expect(new Set(profileStations.map(({ route }) => route)).size).toBe(4);
+    expect(profileStations.map(({ route }) => route)).toEqual([
+      'cobalt',
+      'green',
+      'orange',
+      'black',
+    ]);
   });
 
   it('contains the approved profile sections without project showcase copy', () => {
@@ -37,12 +43,7 @@ describe('profile content', () => {
       learningItems,
       targetProfile,
     });
-    for (const projectTitle of [
-      'Human Nutrition Unit',
-      'Recipe Application',
-      'Road Sign Detection',
-      'Memory Map',
-    ]) {
+    for (const { title: projectTitle } of projects) {
       expect(serialized).not.toContain(projectTitle);
     }
   });
