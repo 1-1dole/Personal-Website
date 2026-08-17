@@ -2,9 +2,35 @@ import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { readFile } from 'node:fs/promises';
 
-const projects = [['human-nutrition-unit', 'Human Nutrition Unit'], ['recipe-application', 'Recipe Application'], ['road-sign-detection', 'Road Sign Detection']] as const;
-test('homepage content, projects, resume and journey', async ({ page }) => { await page.goto('./'); await expect(page.getByRole('heading', { name: 'Graduate Software Engineer' })).toBeVisible(); for (const [, title] of projects) await expect(page.getByRole('heading', { name: title, exact: true })).toBeVisible(); await expect(page.getByRole('heading', { name: 'Memory Map', exact: true })).toBeVisible(); await expect(page.getByRole('link', { name: /resume/i }).first()).toHaveAttribute('href', /resume\/Anson_Lin_Resume\.pdf$/); await expect(page.getByText(/University of Auckland/i)).toBeVisible(); await expect(page.getByText(/Woolworths/i)).toBeVisible(); });
-for (const [slug, title] of projects) test(`generated ${slug} route`, async ({ page }) => { await page.goto(`projects/${slug}/`); await expect(page.locator('main h1')).toContainText(title); await expect(page.getByRole('link', { name: /back|work/i }).first()).toBeVisible(); await expect(page.getByRole('link', { name: /contact/i }).last()).toBeVisible(); for (const link of await page.locator('a[target="_blank"]').all()) await expect(link).toHaveAttribute('rel', /noopener.*noreferrer/); });
+const caseStudies = [
+  ['human-nutrition-unit', 'Human Nutrition Unit'],
+  ['recipe-application', 'Recipe Application'],
+  ['road-sign-detection', 'Road Sign Detection'],
+  ['memory-map', 'Memory Map'],
+] as const;
+
+test('homepage presents Anson profile without a project showcase', async ({ page }) => {
+  await page.goto('./');
+  await expect(page.getByRole('heading', { name: 'Graduate Software Engineer' })).toBeVisible();
+
+  const main = page.locator('main');
+  for (const section of ['Skills', 'Background', 'Learnings', 'Target']) {
+    await expect(main.getByRole('heading', { name: section, exact: true })).toBeVisible();
+  }
+
+  for (const [, projectTitle] of caseStudies) {
+    await expect(main.getByText(projectTitle, { exact: true })).toHaveCount(0);
+  }
+
+  await expect(main.locator('[data-project-card], [data-filter]')).toHaveCount(0);
+  await expect(main.locator('img[src*="hnu"], img[alt*="project" i]')).toHaveCount(0);
+
+  await page.getByRole('navigation', { name: 'Profile map' }).getByRole('link', { name: /^Skills/ }).click();
+  await expect(page).toHaveURL(/#skills$/);
+  await expect(page.locator('#skills')).toBeInViewport();
+});
+
+for (const [slug, title] of caseStudies) test(`generated ${slug} route`, async ({ page }) => { await page.goto(`projects/${slug}/`); await expect(page.locator('main h1')).toContainText(title); await expect(page.getByRole('link', { name: /back|work/i }).first()).toBeVisible(); await expect(page.getByRole('link', { name: /contact/i }).last()).toBeVisible(); for (const link of await page.locator('a[target="_blank"]').all()) await expect(link).toHaveAttribute('rel', /noopener.*noreferrer/); });
 test('HNU image, Road Sign conceptual label and related links', async ({ page }) => { await page.goto('projects/human-nutrition-unit/'); await expect(page.locator('img[alt*="nutrition" i], img[src*="hnu" i]')).toBeVisible(); await page.goto('projects/road-sign-detection/'); await expect(page.getByText('Conceptual pipeline', { exact: true })).toBeVisible(); const navLinks = await page.getByRole('navigation').getByRole('link').count(); expect(navLinks).toBeGreaterThan(0); });
 test('base-path assets and case metadata are canonical and load', async ({ page, request }) => {
   await page.goto('./');

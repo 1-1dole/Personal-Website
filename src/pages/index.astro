@@ -1,47 +1,23 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
-import PixelAvatar from '../components/PixelAvatar.astro';
-import ProjectCard from '../components/ProjectCard.astro';
-import CapabilityGrid from '../components/CapabilityGrid.astro';
-import Timeline from '../components/Timeline.astro';
+import ProfileMap from '../components/ProfileMap.astro';
+import SkillsSection from '../components/SkillsSection.astro';
+import BackgroundSection from '../components/BackgroundSection.astro';
+import LearningsSection from '../components/LearningsSection.astro';
+import TargetSection from '../components/TargetSection.astro';
 import Contact from '../components/Contact.astro';
-import { featuredProjects, projects } from '../data/projects';
-import { withBase } from '../utils/paths';
 import { personJsonLd } from '../utils/seo';
-
-const memoryMap = projects.find((project) => project.slug === 'memory-map');
-const filterCategories = ['All', 'Web', 'Data and AI', 'Team', 'Coursework', 'Hackathon'] as const;
 ---
 
-<BaseLayout structuredData={personJsonLd}>
+<BaseLayout structuredData={personJsonLd} bodyClass="home-page">
   <Header />
-  <canvas class="background-canvas" data-background-canvas aria-hidden="true"></canvas>
   <main id="main">
-    <section class="hero" id="about" data-reveal>
-      <div class="hero-copy">
-        <div class="eyebrow">Currently seeking · Auckland, NZ</div>
-        <h1>Graduate Software Engineer</h1>
-        <p class="lede">I’m Anson Lin, a recent computer science graduate who builds dependable full-stack products, thoughtful interfaces, and tested systems.</p>
-        <div class="actions">
-          <a class="button primary" href="#work">Explore featured work</a>
-          <a class="button" href={withBase('resume/Anson_Lin_Resume.pdf')} aria-label="Download resume">Download resume</a>
-        </div>
-      </div>
-      <PixelAvatar />
-    </section>
-
-    <section id="work" data-reveal>
-      <div class="section-head"><div class="eyebrow">01 / Selected work</div><h2>Projects with a point of view.</h2></div>
-      <div class="filter-group" role="group" aria-label="Project filters">
-        {filterCategories.map((category) => <button type="button" class="filter-button" data-filter={category} aria-label={`Filter projects by ${category}`} aria-pressed={category === 'All'}>{category}</button>)}
-      </div>
-      <div class="grid">{featuredProjects.map((project) => <ProjectCard project={project} />)}</div>
-      {memoryMap && <article class="card memory" data-project-card data-categories="web team hackathon"><div><div class="eyebrow">Supporting project</div><h3>{memoryMap.title}</h3><p>{memoryMap.shortSummary}</p></div><a class="text-link" href={withBase(`projects/${memoryMap.slug}/`)}>View project ↗</a></article>}
-    </section>
-
-    <section id="capabilities" data-reveal><div class="eyebrow">02 / Capabilities</div><h2>Useful at every layer.</h2><CapabilityGrid /></section>
-    <section id="journey" data-reveal><div class="eyebrow">03 / Journey</div><h2>Learning by shipping.</h2><Timeline /></section>
+    <ProfileMap />
+    <SkillsSection />
+    <BackgroundSection />
+    <LearningsSection />
+    <TargetSection />
     <Contact />
   </main>
   <footer>© 2026 Anson Lin · Built with Astro</footer>

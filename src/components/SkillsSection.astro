@@ -1,0 +1,19 @@
+---
+import { skillGroups } from '../data/profile';
+---
+
+<section id="skills" class="profile-section route-cobalt" aria-labelledby="skills-title" data-reveal>
+  <header class="section-sign">
+    <span aria-hidden="true">01</span>
+    <h2 id="skills-title">Skills</h2>
+    <p>The tools and practices I can apply across a delivery cycle.</p>
+  </header>
+  <div class="skills-list">
+    {skillGroups.map((group) => (
+      <article>
+        <h3>{group.title}</h3>
+        <ul>{group.items.map((item) => <li>{item}</li>)}</ul>
+      </article>
+    ))}
+  </div>
+</section>

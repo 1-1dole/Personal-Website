@@ -1,0 +1,20 @@
+---
+import { backgroundItems } from '../data/profile';
+---
+
+<section id="background" class="profile-section route-green" aria-labelledby="background-title" data-reveal>
+  <header class="section-sign">
+    <span aria-hidden="true">02</span>
+    <h2 id="background-title">Background</h2>
+    <p>The study and work habits behind how I approach engineering.</p>
+  </header>
+  <ol class="background-list">
+    {backgroundItems.map((item) => (
+      <li>
+        <p class="station-meta">{item.meta}</p>
+        <h3>{item.title}</h3>
+        <p>{item.summary}</p>
+      </li>
+    ))}
+  </ol>
+</section>

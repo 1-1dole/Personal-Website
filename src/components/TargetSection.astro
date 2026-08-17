@@ -1,0 +1,21 @@
+---
+import { targetProfile } from '../data/profile';
+import { withBase } from '../utils/paths';
+---
+
+<section id="target" class="profile-section route-black" aria-labelledby="target-title" data-reveal>
+  <header class="section-sign">
+    <span aria-hidden="true">04</span>
+    <h2 id="target-title">Target</h2>
+    <p>Where I want to contribute and keep growing.</p>
+  </header>
+  <div class="target-copy">
+    <p class="station-meta">{targetProfile.location}</p>
+    <h3>{targetProfile.heading}</h3>
+    <p>{targetProfile.summary}</p>
+    <div class="map-actions">
+      <a class="action action-primary" href="#contact">Start a conversation</a>
+      <a class="action" href={withBase('resume/Anson_Lin_Resume.pdf')}>Read my resume</a>
+    </div>
+  </div>
+</section>

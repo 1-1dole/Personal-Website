@@ -1,0 +1,19 @@
+---
+import { learningItems } from '../data/profile';
+---
+
+<section id="learnings" class="profile-section route-orange" aria-labelledby="learnings-title" data-reveal>
+  <header class="section-sign">
+    <span aria-hidden="true">03</span>
+    <h2 id="learnings-title">Learnings</h2>
+    <p>Principles I carry from one system and team into the next.</p>
+  </header>
+  <ol class="learning-list">
+    {learningItems.map((item, index) => (
+      <li>
+        <span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+        <div><h3>{item.title}</h3><p>{item.summary}</p></div>
+      </li>
+    ))}
+  </ol>
+</section>
