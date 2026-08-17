@@ -46,11 +46,20 @@ button { color: inherit; }
 .brand { width: 42px; height: 42px; margin-right: auto; display: grid; place-items: center; border-radius: 50%; color: var(--paper); background: var(--ink); font-family: var(--display); font-size: 1.1rem; font-weight: 700; text-decoration: none; }
 .brand span { color: var(--paper); }
 .site-header nav { display: flex; align-items: center; gap: clamp(.65rem, 1.6vw, 1.4rem); }
-.site-header nav a { min-height: 44px; display: inline-flex; align-items: center; font-family: var(--display); font-size: 1rem; font-weight: 600; letter-spacing: .025em; text-decoration: none; }
-.site-header nav a:hover { color: var(--cobalt); }
+.site-header nav a, .case-menu summary { min-height: 44px; display: inline-flex; align-items: center; font-family: var(--display); font-size: 1rem; font-weight: 600; letter-spacing: .025em; text-decoration: none; }
+.site-header nav a:hover, .case-menu summary:hover { color: var(--cobalt); }
 .resume { padding-inline: .75rem; border: 1px solid var(--ink); }
 .menu { display: none; min-height: 44px; background: transparent; border: 1px solid var(--ink); }
 .command { min-width: 44px; min-height: 44px; background: transparent; border: 1px solid var(--ink); font-family: var(--display); font-weight: 600; }
+.case-menu { position: relative; }
+.case-menu summary { gap: .35rem; cursor: pointer; list-style: none; }
+.case-menu summary::-webkit-details-marker { display: none; }
+.case-menu summary::after { content: '+'; font-size: 1.15rem; line-height: 1; }
+.case-menu[open] summary::after { content: '−'; }
+.case-menu-panel { position: absolute; top: calc(100% + .65rem); right: 0; width: min(22rem, calc(100vw - 2rem)); display: grid; padding: .5rem; background: var(--paper-raised); border: 1px solid var(--ink); box-shadow: 10px 14px 32px rgb(17 18 15 / 16%); }
+.case-menu-panel a { display: grid !important; grid-template-columns: 2.4rem 1fr; gap: .5rem; padding: .65rem; border-bottom: 1px solid var(--line); }
+.case-menu-panel a:last-child { border-bottom: 0; }
+.case-menu-panel span { color: var(--cobalt); font-variant-numeric: tabular-nums; }
 
 main { width: 100%; }
 .profile-map {
@@ -133,6 +142,8 @@ footer { width: var(--page); margin: 0 auto; padding: 2rem 0; color: var(--muted
 .palette [data-palette-items] { display: grid; margin-top: .6rem; }
 .palette a { min-height: 44px; padding: .6rem; text-decoration: none; }
 .palette a[aria-current='true'], .palette a:hover { color: var(--paper); background: var(--cobalt); }
+.palette a[hidden] { display: none; }
+.palette-group { margin: .9rem .6rem .25rem; color: var(--muted); font-family: var(--display); font-size: .8rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
 
 :focus-visible { outline: 4px solid var(--cobalt); outline-offset: 4px; }
 [data-reveal].reveal-ready { transform: translateY(12px); transition: transform .55s cubic-bezier(.16, 1, .3, 1); }
@@ -145,10 +156,13 @@ footer { width: var(--page); margin: 0 auto; padding: 2rem 0; color: var(--muted
 
 @media (max-width: 899px) {
   .site-header { min-height: 68px; padding-inline: 1rem; }
-  .site-header nav { display: none; position: absolute; top: 68px; left: 0; right: 0; padding: 1rem; flex-direction: column; align-items: stretch; background: var(--paper-raised); border-bottom: 1px solid var(--ink); }
-  .site-header nav[data-open='true'] { display: flex; }
+  .site-header nav { position: absolute; top: 68px; left: 0; right: 0; padding: 1rem; flex-direction: column; align-items: stretch; background: var(--paper-raised); border-bottom: 1px solid var(--ink); }
+  .js .site-header nav { display: none; }
+  .js .site-header nav[data-open='true'] { display: flex; }
   .site-header nav a { padding-inline: .5rem; }
-  .menu { display: block; }
+  .js .menu { display: block; }
+  .case-menu summary { padding-inline: .5rem; }
+  .case-menu-panel { position: static; width: 100%; box-shadow: none; }
   .profile-map { min-height: auto; padding: 4rem 1rem 5rem; }
   .atlas-map { display: none; }
   .interchange-card, .station { position: static; }

@@ -1,0 +1,16 @@
+---
+import { projects } from '../data/projects';
+import { withBase } from '../utils/paths';
+---
+
+<details class="case-menu" data-case-menu>
+  <summary>Case studies</summary>
+  <div class="case-menu-panel">
+    {projects.map((project, index) => (
+      <a href={withBase(`projects/${project.slug}/`)}>
+        <span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+        {project.title}
+      </a>
+    ))}
+  </div>
+</details>
