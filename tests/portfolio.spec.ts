@@ -30,8 +30,17 @@ test('homepage presents Anson profile without a project showcase', async ({ page
   await expect(page.locator('#skills')).toBeInViewport();
 });
 
-for (const [slug, title] of caseStudies) test(`generated ${slug} route`, async ({ page }) => { await page.goto(`projects/${slug}/`); await expect(page.locator('main h1')).toContainText(title); await expect(page.getByRole('link', { name: /back|work/i }).first()).toBeVisible(); await expect(page.getByRole('link', { name: /contact/i }).last()).toBeVisible(); for (const link of await page.locator('a[target="_blank"]').all()) await expect(link).toHaveAttribute('rel', /noopener.*noreferrer/); });
+for (const [slug, title] of caseStudies) test(`generated ${slug} route`, async ({ page }) => { await page.goto(`projects/${slug}/`); await expect(page.locator('main h1')).toContainText(title); await expect(page.getByRole('link', { name: /profile map/i }).first()).toBeVisible(); await expect(page.getByRole('link', { name: /contact/i }).last()).toBeVisible(); for (const link of await page.locator('main a[target="_blank"]').all()) await expect(link).toHaveAttribute('rel', /noopener.*noreferrer/); });
 test('HNU image, Road Sign conceptual label and related links', async ({ page }) => { await page.goto('projects/human-nutrition-unit/'); await expect(page.locator('img[alt*="nutrition" i], img[src*="hnu" i]')).toBeVisible(); await page.goto('projects/road-sign-detection/'); await expect(page.getByText('Conceptual pipeline', { exact: true })).toBeVisible(); const navLinks = await page.getByRole('navigation').getByRole('link').count(); expect(navLinks).toBeGreaterThan(0); });
+test('case studies use the route progress spine and retain verified evidence', async ({ page }) => {
+  await page.goto('projects/human-nutrition-unit/');
+  const progress = page.getByRole('navigation', { name: 'Case study progress' });
+  for (const label of ['Context', 'Delivery', 'Architecture', 'Confidence', 'Reflection']) {
+    await expect(progress.getByRole('link', { name: label, exact: true })).toBeVisible();
+  }
+  await expect(page.locator('img[src="/Personal-Website/images/hnu-homepage.png"]')).toBeVisible();
+  await expect(page.getByRole('link', { name: /profile map/i })).toHaveAttribute('href', '/Personal-Website/');
+});
 test('base-path assets and case metadata are canonical and load', async ({ page, request }) => {
   await page.goto('./');
   const resume = page.getByRole('link', { name: /resume/i }).first();
