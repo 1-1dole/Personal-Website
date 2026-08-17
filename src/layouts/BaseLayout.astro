@@ -62,7 +62,6 @@ const imageUrl = socialImageUrl(canonicalPath, image);
       }));
 
       const caseMenus = [...document.querySelectorAll('[data-case-menu]')];
-      const closeCaseMenus = () => caseMenus.forEach((menu) => menu.removeAttribute('open'));
 
       const dialog = document.querySelector('[data-palette]');
       const input = document.querySelector('[data-palette-input]');
@@ -105,9 +104,24 @@ const imageUrl = socialImageUrl(canonicalPath, image);
         }
         if (event.key === 'Escape') {
           const paletteWasOpen = Boolean(dialog && !dialog.hasAttribute('hidden'));
-          if (paletteWasOpen) closePalette();
-          closeCaseMenus();
-          closeNav(!paletteWasOpen);
+          if (paletteWasOpen) {
+            event.preventDefault();
+            closePalette();
+            return;
+          }
+
+          const openCaseMenu = caseMenus.find((menu) => menu.hasAttribute('open'));
+          if (openCaseMenu) {
+            event.preventDefault();
+            openCaseMenu.removeAttribute('open');
+            openCaseMenu.querySelector('summary')?.focus();
+            return;
+          }
+
+          if (nav?.getAttribute('data-open') === 'true') {
+            event.preventDefault();
+            closeNav(true);
+          }
         }
         if (dialog && !dialog.hasAttribute('hidden')) {
           const visible = visibleItems();

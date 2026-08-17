@@ -95,7 +95,7 @@ main { width: 100%; }
 .station-cobalt { left: 70%; top: 12%; color: var(--cobalt); }
 .station-green { left: 76%; top: 43%; color: var(--green); }
 .station-orange { left: 66%; top: 73%; color: var(--orange); }
-.station-black { left: 32%; top: 82%; color: var(--ink); }
+.station-black { left: 48%; top: 82%; color: var(--ink); }
 .station:hover { color: var(--paper); background: currentColor; }
 .station:hover span, .station:hover small { color: var(--paper); }
 
@@ -166,7 +166,7 @@ footer { width: var(--page); margin: 0 auto; padding: 2rem 0; color: var(--muted
 .architecture-flow ol { display: grid; grid-template-columns: repeat(3, 1fr); margin: 2rem 0 0; padding: 0; list-style: none; border-block: 1px solid var(--ink); }
 .architecture-flow li { position: relative; min-width: 0; padding: 1.25rem; border-right: 1px solid var(--line); }
 .architecture-flow li:last-child { border-right: 0; }
-.architecture-flow li:not(:last-child)::after { content: ''; position: absolute; top: 2rem; right: -.45rem; width: .8rem; height: .8rem; border-top: 3px solid var(--orange); border-right: 3px solid var(--orange); transform: rotate(45deg); background: var(--paper); }
+.architecture-flow li:not(:last-child)::after { content: ''; position: absolute; top: 2rem; right: -.5rem; width: 1rem; height: 1rem; background: var(--orange); clip-path: polygon(0 0, 100% 50%, 0 100%, 30% 50%); }
 .architecture-flow li > span { color: var(--orange); font-family: var(--display); font-size: 1.35rem; font-weight: 700; }
 .architecture-flow li p { margin-bottom: 0; }
 .related-grid { display: grid; border-top: 1px solid var(--ink); }
@@ -197,7 +197,7 @@ footer { width: var(--page); margin: 0 auto; padding: 2rem 0; color: var(--muted
 [data-reveal].reveal-ready.is-visible { transform: none; }
 
 @media (prefers-reduced-motion: no-preference) {
-  .atlas-map path { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw-route 900ms cubic-bezier(.16, 1, .3, 1) forwards; }
+  .atlas-map path { stroke-dasharray: 1400; stroke-dashoffset: 1400; animation: draw-route 900ms cubic-bezier(.16, 1, .3, 1) forwards; }
 }
 @keyframes draw-route { to { stroke-dashoffset: 0; } }
 
@@ -212,12 +212,14 @@ footer { width: var(--page); margin: 0 auto; padding: 2rem 0; color: var(--muted
   .case-menu-panel { position: static; width: 100%; box-shadow: none; }
   .profile-map { min-height: auto; padding: 4rem 1rem 5rem; }
   .atlas-map { display: none; }
-  .interchange-card, .station { position: static; }
+  .interchange-card { position: static; }
+  .station { position: relative; inset: auto; }
   .interchange-card { width: 100%; padding: 0 0 3rem; background: transparent; border: 0; box-shadow: none; }
   .interchange-card h1 { max-width: 8ch; font-size: clamp(3.8rem, 17vw, 6rem); }
-  .station-list { display: grid; padding-left: 1rem; border-left: 8px solid var(--cobalt); }
+  .station-list { position: relative; display: grid; padding-left: 1rem; }
+  .station-list::before { content: ''; position: absolute; inset: 0 auto 0 0; width: 8px; background: var(--cobalt); }
   .station { width: 100%; min-height: 88px; margin-top: .65rem; box-shadow: none; }
-  .station::before { left: calc(-1rem - 12px); width: 1rem; height: 1rem; border-width: 4px; }
+  .station::before { left: -1.25rem; width: 1rem; height: 1rem; border-width: 4px; }
   .skills-list article { grid-column: span 6; }
   .skills-list article:nth-child(3n) { border-right: 1px solid var(--line); }
   .skills-list article:nth-child(2n) { border-right: 0; }
@@ -235,7 +237,7 @@ footer { width: var(--page); margin: 0 auto; padding: 2rem 0; color: var(--muted
   .profile-section { padding-inline: 1rem; }
   .section-sign { grid-template-columns: 1fr; align-items: start; }
   .section-sign > span { grid-row: auto; font-size: 4rem; }
-  .skills-list article { grid-column: 1 / -1; border-right: 0; }
+  .skills-list article, .skills-list article:nth-child(n) { grid-column: 1 / -1; border-right: 0; }
   .background-list li { grid-template-columns: 1fr; padding-left: 1.5rem; }
   .background-list .station-meta { grid-row: auto; }
   .learning-list li { grid-template-columns: 3rem 1fr; }
@@ -247,7 +249,7 @@ footer { width: var(--page); margin: 0 auto; padding: 2rem 0; color: var(--muted
   .architecture-flow ol { grid-template-columns: 1fr; }
   .architecture-flow li { border-right: 0; border-bottom: 1px solid var(--line); }
   .architecture-flow li:last-child { border-bottom: 0; }
-  .architecture-flow li:not(:last-child)::after { top: auto; right: 1.4rem; bottom: -.45rem; transform: rotate(135deg); }
+  .architecture-flow li:not(:last-child)::after { top: auto; right: 1.4rem; bottom: -.5rem; transform: rotate(90deg); }
   .related-grid a { grid-template-columns: 1fr; }
   .not-found { width: calc(100% - 2rem); }
 }
