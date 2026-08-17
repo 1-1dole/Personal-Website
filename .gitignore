@@ -1,0 +1,47 @@
+node_modules/
+dist/
+.astro/
+coverage/
+playwright-report/
+test-results/
+.lighthouseci/
+.superpowers/
+tmp/
+.env
+.env.*
+!.env.example
+*** Add File: C:\Users\anson\Desktop\personal-website\docs\superpowers\specs\2026-08-17-astro-portfolio-design.md
+# Astro Portfolio Rebuild Design
+
+## Objective
+
+Replace the single-file pixel portfolio with a recruiter-ready Astro and TypeScript site for graduate software-engineering applications. Preserve the avatar, dark palette, pixel borders, and playful micro-interactions while making the content readable, evidence-led, accessible, responsive, and fast.
+
+## Information Architecture
+
+- The homepage contains the graduate-software-engineer hero, featured case studies, evidence-linked capabilities, education and work timeline, and contact actions.
+- Human Nutrition Unit, Recipe Application, and Road Sign Detection each receive a shareable case-study route.
+- Memory Map remains a supporting project and links to its repository.
+- The public resume is downloadable without exposing the mobile number.
+
+## Content Rules
+
+- Use only facts present in Anson's approved resume or verified public project material.
+- Do not invent metrics, outcomes, responsibilities, screenshots, or implementation details.
+- HNU emphasizes six-person sprint delivery, owned pages, Sanity integration, site-wide testing, and Render deployment.
+- Recipe emphasizes Flask Blueprints, repository and service layers, swappable persistence, AJAX workflows, pagination, authentication, and 25+ tests.
+- Road Sign uses a labelled conceptual pipeline diagram and has no source/demo link until genuine assets are supplied.
+
+## Technical Design
+
+- Astro static output, strict TypeScript, Tailwind CSS, npm lockfile, and GitHub Pages base path `/Personal-Website/`.
+- Typed project content is the single source for cards, filters, case-study pages, metadata, and structured data.
+- Client JavaScript is limited to the mobile menu, project filters, command palette, email copying, reveal enhancement, and decorative canvas.
+- Content remains visible without JavaScript. Reduced-motion mode disables non-essential animation.
+- No backend, CMS, analytics, cookies, or reconstructed demo is included in v1.
+
+## Delivery
+
+- Develop on `codex/astro-portfolio` while preserving the current site in Git history.
+- Gate publication on static checks, unit tests, browser tests, accessibility checks, production build, PDF verification, and representative Lighthouse audits.
+- Deploy to the existing `1-1dole/Personal-Website` GitHub Pages URL through GitHub Actions.
