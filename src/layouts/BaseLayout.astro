@@ -147,17 +147,6 @@ const imageUrl = socialImageUrl(canonicalPath, image);
         });
       });
 
-      document.querySelector('[data-copy]')?.addEventListener('click', async (event) => {
-        const button = event.currentTarget;
-        const status = button.nextElementSibling;
-        try {
-          await navigator.clipboard.writeText(button.dataset.copy);
-          status.textContent = 'Email copied.';
-        } catch {
-          status.textContent = 'Copy unavailable — select the email above.';
-        }
-      });
-
       const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
       document.querySelectorAll('[data-reveal]').forEach((element) => {
         if (reduceMotion || !('IntersectionObserver' in window)) return;

@@ -30,6 +30,45 @@ test('homepage presents Anson profile without a project showcase', async ({ page
   await expect(page.locator('#skills')).toBeInViewport();
 });
 
+test('profile stations keep their route color and readable text on hover', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto('./');
+  const expectedColors = [
+    ['rgb(18, 79, 212)', 'rgb(244, 241, 232)'],
+    ['rgb(7, 136, 70)', 'rgb(244, 241, 232)'],
+    ['rgb(233, 79, 8)', 'rgb(244, 241, 232)'],
+    ['rgb(17, 18, 15)', 'rgb(244, 241, 232)'],
+  ] as const;
+
+  for (const [index, station] of (await page.locator('[data-station]').all()).entries()) {
+    await station.hover();
+    const colors = await station.evaluate((element) => {
+      const style = getComputedStyle(element);
+      return [style.backgroundColor, style.color];
+    });
+    expect(colors).toEqual(expectedColors[index]);
+  }
+});
+
+test('profile section headings leave clear space before their descriptions', async ({ page }) => {
+  await page.setViewportSize({ width: 645, height: 900 });
+  await page.goto('./');
+
+  for (const sign of await page.locator('.section-sign').all()) {
+    const gap = await sign.evaluate((element) => {
+      const heading = element.querySelector('h2');
+      const description = element.querySelector('p');
+      if (!heading || !description) return -1;
+      const headingRange = document.createRange();
+      const descriptionRange = document.createRange();
+      headingRange.selectNodeContents(heading);
+      descriptionRange.selectNodeContents(description);
+      return descriptionRange.getBoundingClientRect().top - headingRange.getBoundingClientRect().bottom;
+    });
+    expect(gap).toBeGreaterThanOrEqual(12);
+  }
+});
+
 for (const [slug, title] of caseStudies) test(`generated ${slug} route`, async ({ page }) => { await page.goto(`projects/${slug}/`); await expect(page.locator('main h1')).toContainText(title); await expect(page.getByRole('link', { name: /profile map/i }).first()).toBeVisible(); await expect(page.getByRole('link', { name: /contact/i }).last()).toBeVisible(); for (const link of await page.locator('main a[target="_blank"]').all()) await expect(link).toHaveAttribute('rel', /noopener.*noreferrer/); for (const link of await page.locator('.related-grid a').all()) await expect(link).toHaveAttribute('href', /^\/Personal-Website\/projects\/[^/]+\/$/); });
 test('HNU image, Road Sign conceptual label and related links', async ({ page }) => { await page.goto('projects/human-nutrition-unit/'); await expect(page.locator('img[alt*="nutrition" i], img[src*="hnu" i]')).toBeVisible(); await page.goto('projects/road-sign-detection/'); await expect(page.getByText('Conceptual pipeline', { exact: true })).toBeVisible(); const navLinks = await page.getByRole('navigation').getByRole('link').count(); expect(navLinks).toBeGreaterThan(0); });
 test('case studies use the route progress spine and retain verified evidence', async ({ page }) => {
@@ -117,7 +156,7 @@ test('command palette Escape restores command focus on mobile', async ({ page })
 test('case page command palette routes back to homepage sections', async ({ page }) => { await page.goto('projects/human-nutrition-unit/'); const opener = page.getByRole('button', { name: 'Open command palette' }); await opener.click(); const dialog = page.getByRole('dialog', { name: /command palette/i }); await expect(dialog).toBeVisible(); await expect(dialog.getByRole('link', { name: 'Skills' })).toHaveAttribute('href', '/Personal-Website/#skills'); await dialog.getByRole('link', { name: 'Skills' }).click(); await expect(page).toHaveURL(/\/Personal-Website\/#skills$/); });
 test('case page header stays at the page top instead of following scroll', async ({ page }) => { await page.goto('projects/human-nutrition-unit/'); const header = page.locator('.site-header'); await expect(header).toBeVisible(); await page.evaluate(() => window.scrollTo(0, 900)); await expect.poll(async () => (await header.boundingBox())?.y ?? 0).toBeLessThan(0); });
 test('case study hero uses normal document flow without overlapping sections', async ({ page }) => { await page.goto('projects/human-nutrition-unit/'); const hero = page.locator('.case-hero'); const overview = page.locator('.case-section').first(); await expect(hero).toHaveCSS('position', 'static'); const heroBox = await hero.boundingBox(); const overviewBox = await overview.boundingBox(); expect(heroBox).not.toBeNull(); expect(overviewBox).not.toBeNull(); expect(overviewBox!.y).toBeGreaterThanOrEqual(heroBox!.y + heroBox!.height); });
-test('email fallback/status and branded 404', async ({ page }) => { await page.goto('./'); await expect(page.locator('a[href^="mailto:"]').first()).toBeVisible(); const copy = page.getByRole('button', { name: /copy.*email/i }); if (await copy.count()) { await copy.click(); await expect(page.locator('[aria-live="polite"], [role="status"]')).toContainText(/copied|failed|clipboard/i); } await page.goto('missing/'); await expect(page.getByText('404 / Station not found', { exact: true })).toBeVisible(); await expect(page.getByRole('heading', { name: 'That station is missing.' })).toBeVisible(); await expect(page.getByRole('link', { name: 'Return to profile map' })).toHaveAttribute('href', '/Personal-Website/'); });
+test('contact keeps direct email without a copy control and 404 stays branded', async ({ page }) => { await page.goto('./'); await expect(page.locator('a[href^="mailto:"]').first()).toBeVisible(); await expect(page.getByRole('button', { name: /copy.*email/i })).toHaveCount(0); await expect(page.locator('[data-copy-status]')).toHaveCount(0); await page.goto('missing/'); await expect(page.getByText('404 / Station not found', { exact: true })).toBeVisible(); await expect(page.getByRole('heading', { name: 'That station is missing.' })).toBeVisible(); await expect(page.getByRole('link', { name: 'Return to profile map' })).toHaveAttribute('href', '/Personal-Website/'); });
 for (const width of [320, 375, 390, 768, 1440]) {
   test(`homepage and case study have no horizontal overflow at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
