@@ -4,3 +4,5 @@ export const site = {
   url: 'https://1-1dole.github.io',
   base: '/Personal-Website',
 } as const;
+
+export const siteOrigin = `${site.url}${site.base}`;

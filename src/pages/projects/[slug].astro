@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Contact from '../../components/Contact.astro';
+import ArchitectureFlow from '../../components/ArchitectureFlow.astro';
+import { projects } from '../../data/projects';
+import { withBase } from '../../utils/paths';
+import { projectJsonLd } from '../../utils/seo';
+export function getStaticPaths() { return projects.map((project) => ({ params: { slug: project.slug }, props: { project } })); }
+const { project } = Astro.props;
+const related = projects.filter((candidate) => candidate.slug !== project.slug && candidate.categories.some((category) => project.categories.includes(category))).slice(0, 3);
+const isHnu = project.slug === 'human-nutrition-unit'; const isRoadSigns = project.slug === 'road-sign-detection';
+---
+<BaseLayout title={`${project.title} — Anson Lin`} description={project.shortSummary} canonicalPath={`projects/${project.slug}/`} image={isHnu ? 'images/hnu-homepage.png' : undefined} structuredData={projectJsonLd(project)}><Header /><main id="main" class="case">
+<a class="back" href={withBase('#work')}>← Back to work</a>
+<header class="case-hero"><div class="eyebrow">Case study / {project.categories.join(' · ')}</div><h1>{project.title}</h1><p class="lede">{project.shortSummary}</p>{isHnu && <div class="case-media"><img src={withBase('images/hnu-homepage.png')} alt="Human Nutrition Unit homepage showing the capstone site's nutrition content layout" loading="eager" /></div>}</header>
+<section class="case-section"><div class="eyebrow">01 / Context</div><h2>Overview</h2><p>{project.longSummary}</p><h3>Problem framing</h3><p>{project.shortSummary}</p></section>
+<section class="case-meta" aria-label="Project details"><div><b>Role</b><span>{project.role}</span></div><div><b>Team</b><span>{project.teamContext}</span></div><div><b>Tools</b><span>{project.technologies.join(' · ')}</span></div></section>
+{project.links.length > 0 && <section class="case-section"><div class="eyebrow">Links</div><h2>See the work</h2><div class="case-links">{project.links.map((link) => <a href={link.href} target="_blank" rel="noopener noreferrer">{link.label} ↗</a>)}</div></section>}
+<section class="case-section"><div class="eyebrow">02 / Delivery</div><h2>Highlights</h2><ul>{project.highlights.map((item) => <li>{item}</li>)}</ul></section>
+<section class="case-section"><div class="eyebrow">03 / System shape</div><h2>Architecture</h2>{isRoadSigns && <p class="architecture-note">Conceptual pipeline for coursework analysis, not a deployed production service.</p>}<ArchitectureFlow steps={project.architecture} conceptual={isRoadSigns} /></section>
+<section class="case-section"><div class="eyebrow">04 / Confidence</div><h2>Testing &amp; deployment</h2><h3>Testing</h3><p>{project.testing.join(' ')}</p><h3>Deployment</h3><p>{project.deployment.join(' ')}</p></section>
+<section class="case-section"><div class="eyebrow">05 / Reflection</div><h2>Lessons</h2><p>{project.lessons.join(' ')}</p></section>
+{related.length > 0 && <nav class="case-section"><div class="eyebrow">Keep exploring</div><h2>Related projects</h2><div class="related-grid">{related.map((item) => <a href={withBase(`projects/${item.slug}/`)}><strong>{item.title}</strong><span>{item.shortSummary}</span></a>)}</div></nav>}
+<section class="case-section case-cta"><h2>Want to talk through the work?</h2><a href="mailto:ansonlin09@gmail.com">Email Anson ↗</a></section><Contact /></main></BaseLayout>
