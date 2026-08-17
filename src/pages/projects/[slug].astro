@@ -13,7 +13,7 @@ const isHnu = project.slug === 'human-nutrition-unit'; const isRoadSigns = proje
 ---
 <BaseLayout title={`${project.title} — Anson Lin`} description={project.shortSummary} canonicalPath={`projects/${project.slug}/`} image={isHnu ? 'images/hnu-homepage.png' : undefined} structuredData={projectJsonLd(project)} bodyClass="case-study-page"><Header /><main id="main" class="case">
 <a class="back" href={withBase('/')}>← Profile map</a>
-<nav class="case-progress" aria-label="Case study progress">
+<nav class="case-progress" aria-label="Project progress">
   {[
     ['context', 'Context'],
     ['delivery', 'Delivery'],
@@ -22,7 +22,7 @@ const isHnu = project.slug === 'human-nutrition-unit'; const isRoadSigns = proje
     ['reflection', 'Reflection'],
   ].map(([id, label], index) => <a href={`#${id}`}><span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>{label}</a>)}
 </nav>
-<header class="case-hero"><div class="eyebrow">Case study / {project.categories.join(' · ')}</div><h1>{project.title}</h1><p class="lede">{project.shortSummary}</p>{isHnu && <div class="case-media"><img src={withBase('images/hnu-homepage.png')} alt="Human Nutrition Unit homepage showing the capstone site's nutrition content layout" loading="eager" /></div>}</header>
+<header class="case-hero"><div class="eyebrow">Project / {project.categories.join(' · ')}</div><h1>{project.title}</h1><p class="lede">{project.shortSummary}</p>{isHnu && <div class="case-media"><img src={withBase('images/hnu-homepage.png')} alt="Human Nutrition Unit homepage showing the capstone site's nutrition content layout" loading="eager" /></div>}</header>
 <section id="context" class="case-section"><div class="eyebrow">01 / Context</div><h2>Overview</h2><p>{project.longSummary}</p><h3>Problem framing</h3><p>{project.shortSummary}</p></section>
 <section class="case-meta" aria-label="Project details"><div><b>Role</b><span>{project.role}</span></div><div><b>Team</b><span>{project.teamContext}</span></div><div><b>Tools</b><span>{project.technologies.join(' · ')}</span></div></section>
 {project.links.length > 0 && <section class="case-section"><div class="eyebrow">Links</div><h2>See the work</h2><div class="case-links">{project.links.map((link) => <a href={link.href} target="_blank" rel="noopener noreferrer">{link.label} ↗</a>)}</div></section>}

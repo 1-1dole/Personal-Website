@@ -51,10 +51,10 @@
       "css": ".ds-station { min-height: 78px; display: grid; align-content: center; gap: .1rem; padding: .7rem .9rem .75rem 1.15rem; color: var(--cobalt, #124fd4); background: var(--paper-raised, #fffdf6); border: 1px solid currentColor; font-family: var(--display, 'Barlow Condensed', sans-serif); text-decoration: none; } .ds-station strong { font-size: 1.5rem; line-height: 1; } .ds-station small { color: var(--muted, #555c55); font-family: var(--body, 'Source Sans 3', sans-serif); } .ds-station:hover { color: var(--paper, #f4f1e8); background: var(--cobalt, #124fd4); } .ds-station:hover small { color: var(--paper, #f4f1e8); } .ds-station:focus-visible { outline: 4px solid var(--cobalt, #124fd4); outline-offset: 4px; }"
     },
     {
-      "name": "Case Study Disclosure",
+      "name": "Projects Disclosure",
       "kind": "nav",
-      "description": "A native no-JavaScript route menu for every case study.",
-      "html": "<details class=\"ds-case-menu\"><summary>Case studies</summary><a href=\"#\">01 Project title</a></details>",
+      "description": "A native no-JavaScript route menu for every project.",
+      "html": "<details class=\"ds-case-menu\"><summary>Projects</summary><a href=\"#\">01 Project title</a></details>",
       "css": ".ds-case-menu { font-family: var(--display, 'Barlow Condensed', sans-serif); } .ds-case-menu summary { min-height: 44px; display: inline-flex; align-items: center; gap: .35rem; cursor: pointer; font-weight: 600; } .ds-case-menu a { min-height: 44px; display: flex; align-items: center; padding: .65rem; color: var(--ink, #11120f); background: var(--paper-raised, #fffdf6); border-bottom: 1px solid var(--line, #c7cbc3); text-decoration: none; } .ds-case-menu summary:hover, .ds-case-menu a:hover { color: var(--cobalt, #124fd4); } .ds-case-menu summary:focus-visible, .ds-case-menu a:focus-visible { outline: 4px solid var(--cobalt, #124fd4); outline-offset: 4px; }"
     },
     {

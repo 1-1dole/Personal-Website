@@ -17,7 +17,7 @@ const destinations = [
   <div data-palette-items>
     <p class="palette-group">Profile</p>
     {destinations.map(([id, label]) => <a href={withBase(`#${id}`)}>{label}</a>)}
-    <p class="palette-group">Case studies</p>
+    <p class="palette-group">Projects</p>
     {projects.map((project) => <a href={withBase(`projects/${project.slug}/`)}>{project.title}</a>)}
   </div>
 </div>

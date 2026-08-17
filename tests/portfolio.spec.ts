@@ -71,9 +71,10 @@ test('profile section headings leave clear space before their descriptions', asy
 
 for (const [slug, title] of caseStudies) test(`generated ${slug} route`, async ({ page }) => { await page.goto(`projects/${slug}/`); await expect(page.locator('main h1')).toContainText(title); await expect(page.getByRole('link', { name: /profile map/i }).first()).toBeVisible(); await expect(page.getByRole('link', { name: /contact/i }).last()).toBeVisible(); for (const link of await page.locator('main a[target="_blank"]').all()) await expect(link).toHaveAttribute('rel', /noopener.*noreferrer/); for (const link of await page.locator('.related-grid a').all()) await expect(link).toHaveAttribute('href', /^\/Personal-Website\/projects\/[^/]+\/$/); });
 test('HNU image, Road Sign conceptual label and related links', async ({ page }) => { await page.goto('projects/human-nutrition-unit/'); await expect(page.locator('img[alt*="nutrition" i], img[src*="hnu" i]')).toBeVisible(); await page.goto('projects/road-sign-detection/'); await expect(page.getByText('Conceptual pipeline', { exact: true })).toBeVisible(); const navLinks = await page.getByRole('navigation').getByRole('link').count(); expect(navLinks).toBeGreaterThan(0); });
-test('case studies use the route progress spine and retain verified evidence', async ({ page }) => {
+test('projects use the route progress spine and retain verified evidence', async ({ page }) => {
   await page.goto('projects/human-nutrition-unit/');
-  const progress = page.getByRole('navigation', { name: 'Case study progress' });
+  const progress = page.getByRole('navigation', { name: 'Project progress' });
+  await expect(page.getByText(/^Project \/ /)).toBeVisible();
   for (const label of ['Context', 'Delivery', 'Architecture', 'Confidence', 'Reflection']) {
     await expect(progress.getByRole('link', { name: label, exact: true })).toBeVisible();
   }
@@ -92,10 +93,10 @@ test('base-path assets and case metadata are canonical and load', async ({ page,
   await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', /nutrition/i);
   await expect(page.getByRole('link', { name: /related|recipe application/i }).first()).toHaveAttribute('href', /\/Personal-Website\/projects\/[^/]+\/$/);
 });
-test('global navigation exposes case studies without putting them in homepage main', async ({ page }) => {
+test('global navigation exposes projects without putting them in homepage main', async ({ page }) => {
   await page.goto('./');
   const header = page.getByRole('banner');
-  await header.getByText('Case studies', { exact: true }).click();
+  await header.getByText('Projects', { exact: true }).click();
   for (const [slug, title] of caseStudies) {
     await expect(header.getByRole('link', { name: title, exact: true })).toHaveAttribute(
       'href',
@@ -109,7 +110,7 @@ test('case-study navigation is available without JavaScript', async ({ browser }
   const context = await browser.newContext({ javaScriptEnabled: false });
   const page = await context.newPage();
   await page.goto('http://127.0.0.1:4321/Personal-Website/');
-  await page.getByRole('banner').getByText('Case studies', { exact: true }).click();
+  await page.getByRole('banner').getByText('Projects', { exact: true }).click();
   await expect(page.getByRole('link', { name: 'Human Nutrition Unit', exact: true })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Skills', exact: true })).toBeVisible();
   await context.close();
@@ -117,13 +118,14 @@ test('case-study navigation is available without JavaScript', async ({ browser }
 
 test('case-study disclosure and command palette expose every route by keyboard', async ({ page }) => {
   await page.goto('./');
-  const summary = page.getByRole('banner').getByText('Case studies', { exact: true });
+  const summary = page.getByRole('banner').getByText('Projects', { exact: true });
   await summary.focus();
   await page.keyboard.press('Enter');
   await expect(page.getByRole('banner').getByRole('link', { name: 'Memory Map', exact: true })).toBeVisible();
 
   await page.getByRole('button', { name: 'Open command palette' }).click();
   const palette = page.getByRole('dialog', { name: /command palette/i });
+  await expect(palette.getByText('Projects', { exact: true })).toBeVisible();
   for (const [slug, title] of caseStudies) {
     await expect(palette.getByRole('link', { name: title, exact: true })).toHaveAttribute(
       'href',
@@ -135,7 +137,7 @@ test('case-study disclosure and command palette expose every route by keyboard',
 test('Escape restores the control that opened navigation without stealing idle focus', async ({ page }) => {
   await page.goto('./');
   const header = page.getByRole('banner');
-  const summary = header.getByText('Case studies', { exact: true });
+  const summary = header.getByText('Projects', { exact: true });
   await summary.focus();
   await page.keyboard.press('Enter');
   const firstCase = header.getByRole('link', { name: 'Human Nutrition Unit', exact: true });

@@ -22,7 +22,7 @@ pnpm run build     # Build the static site into dist/
 Homepage facts live in `src/data/profile.ts`; case-study facts live in
 `src/data/projects.ts`; shared site metadata lives in `src/data/site.ts`. Keep
 the homepage focused on Skills, Background, Learnings, Target, and Contact.
-Projects remain discoverable through the global Case studies menu and appear
+Projects remain discoverable through the global Projects menu and appear
 only on their generated case-study routes.
 
 The visual system and reusable interface rules are documented in `DESIGN.md`.

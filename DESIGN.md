@@ -161,7 +161,7 @@ The form language is square and infrastructural: one-pixel rules, hard station r
 
 ### Navigation
 
-Navigation uses Barlow Condensed at 600 weight with touch-sized targets. The Case studies disclosure is a native `details` element so routes remain reachable without JavaScript. Below 900px, navigation stacks into a full-width Raised Paper panel; the command palette remains an optional enhancement.
+Navigation uses Barlow Condensed at 600 weight with touch-sized targets. The Projects disclosure is a native `details` element so routes remain reachable without JavaScript. Below 900px, navigation stacks into a full-width Raised Paper panel; the command palette remains an optional enhancement.
 
 ### Profile Stations
 

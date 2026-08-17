@@ -11,4 +11,4 @@ Page job: Introduce Anson through Skills, Background, Learnings, Target, and Con
 Homepage boundary: No project showcase content inside main
 Primary route: Skills -> Background -> Learnings -> Target
 Visual reference: .impeccable/mocks/homepage-systems-atlas.png
-Project discovery: Global Case studies disclosure links to individual case-study routes
+Project discovery: Global Projects disclosure links to individual project routes
