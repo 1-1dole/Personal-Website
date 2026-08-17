@@ -5,7 +5,6 @@ coverage/
 playwright-report/
 test-results/
 .lighthouseci/
-.superpowers/
 tmp/
 .env
 .env.*
