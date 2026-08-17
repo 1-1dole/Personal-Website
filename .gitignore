@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.astro/
+coverage/
+playwright-report/
+test-results/
+.lighthouseci/
+.superpowers/
+tmp/
+.env
+.env.*
+!.env.example
