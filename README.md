@@ -1,8 +1,6 @@
 # Personal Website
 
-Anson Lin's Astro + TypeScript software-engineering portfolio. Its Systems
-Atlas interface introduces Anson through a profile map, then keeps detailed
-engineering evidence on focused case-study routes.
+Anson Lin's Astro + TypeScript software-engineering portfolio. 
 
 **Live website:** [https://1-1dole.github.io/Personal-Website/](https://1-1dole.github.io/Personal-Website/)
 
@@ -25,12 +23,7 @@ the homepage focused on Skills, Background, Learnings, Target, and Contact.
 Projects remain discoverable through the global Projects menu and appear
 only on their generated case-study routes.
 
-The visual system and reusable interface rules are documented in `DESIGN.md`.
 The downloadable resume is served from
 `public/resume/Anson_Lin_Resume.pdf`.
 
-## GitHub Pages
 
-Pushes to `main` (and manual workflow dispatches) run checks, unit tests, and a
-production build before deploying `dist/` to GitHub Pages. See
-`.github/workflows/deploy.yml` for the deployment workflow.
