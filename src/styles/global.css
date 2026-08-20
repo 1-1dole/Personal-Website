@@ -64,7 +64,7 @@ button { color: inherit; }
 main { width: 100%; }
 .profile-map {
   position: relative;
-  min-height: min(760px, calc(100vh - 72px));
+  min-height: 760px;
   overflow: clip;
   border-bottom: 1px solid var(--ink);
   background-image: linear-gradient(rgb(17 18 15 / 5%) 1px, transparent 1px), linear-gradient(90deg, rgb(17 18 15 / 5%) 1px, transparent 1px);

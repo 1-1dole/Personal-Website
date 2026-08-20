@@ -69,6 +69,19 @@ test('profile section headings leave clear space before their descriptions', asy
   }
 });
 
+test('wide short homepage keeps profile actions inside the hero', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 700 });
+  await page.goto('./');
+  await page.evaluate(() => document.fonts.ready);
+
+  const heroBox = await page.locator('.profile-map').boundingBox();
+  const actionsBox = await page.locator('.profile-map .map-actions').boundingBox();
+
+  expect(heroBox).not.toBeNull();
+  expect(actionsBox).not.toBeNull();
+  expect(actionsBox!.y + actionsBox!.height).toBeLessThanOrEqual(heroBox!.y + heroBox!.height);
+});
+
 for (const [slug, title] of caseStudies) test(`generated ${slug} route`, async ({ page }) => { await page.goto(`projects/${slug}/`); await expect(page.locator('main h1')).toContainText(title); await expect(page.getByRole('link', { name: /profile map/i }).first()).toBeVisible(); await expect(page.getByRole('link', { name: /contact/i }).last()).toBeVisible(); for (const link of await page.locator('main a[target="_blank"]').all()) await expect(link).toHaveAttribute('rel', /noopener.*noreferrer/); for (const link of await page.locator('.related-grid a').all()) await expect(link).toHaveAttribute('href', /^\/Personal-Website\/projects\/[^/]+\/$/); });
 test('HNU image, Road Sign conceptual label and related links', async ({ page }) => { await page.goto('projects/human-nutrition-unit/'); await expect(page.locator('img[alt*="nutrition" i], img[src*="hnu" i]')).toBeVisible(); await page.goto('projects/road-sign-detection/'); await expect(page.getByText('Conceptual pipeline', { exact: true })).toBeVisible(); const navLinks = await page.getByRole('navigation').getByRole('link').count(); expect(navLinks).toBeGreaterThan(0); });
 test('projects use the route progress spine and retain verified evidence', async ({ page }) => {
